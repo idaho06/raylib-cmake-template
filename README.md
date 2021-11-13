@@ -1,16 +1,16 @@
-# Simple and portable CMake template for raylib
+# Simple and portable CMake template for a C++ application using raylib
 
-This is a basic project template for raylib using CMake and has been tested with Visual Studio, Visual Studio Code and CLion.
+This is a basic project template for raylib using CMake.
 
 The master branch of the raylib source code is downloaded using CMake FetchContent from github and compiled from source as it is much easier than including prebuilt binaries for every platform and configuration.
 
-Building from the cmake file will build both raylib and `src/main.c` which includes a basic example of a raylib program.
+Building from the cmake file will build both raylib and `source/main.cpp` which includes a basic example of a raylib program.
 
 ## Asset handling
 
-The example in `src/main.c` uses an example image located in the `assets` folder.
+The example in `source/main.c` uses an example image located in the `assets` folder.
 To load it we use `ASSETS_PATH`, which is a string macro with the *absolute* path "assets" directory.
-This macro is defined in the `CMakeLists.txt` file on line `23`.
+This macro is defined in the `CMakeLists.txt` file. 
  
 If you plan on releasing or sharing your game consider manually setting the value of the `ASSETS_PATH` macro.
 
