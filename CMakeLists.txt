@@ -40,3 +40,10 @@ else()
     # lots of warnings and all warnings as errors
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
+
+#Color on output for GCC and Clang (Does not work with ninja)
+if (CMAKE_CXX_COMPILER_ID STREQUAL GNU)
+    target_compile_options (${PROJECT_NAME} PRIVATE -fdiagnostics-color=always)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL Clang)
+    target_compile_options (${PROJECT_NAME} PRIVATE -fcolor-diagnostics)
+endif ()
