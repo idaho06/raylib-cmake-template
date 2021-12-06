@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11) # Fetchcontent was introduced in 3.11
+cmake_minimum_required(VERSION 3.13) # "target_link_options" was introuced in 3.13
 cmake_policy(SET CMP0048 NEW) # For using VERSION in "project"
 
 project(my_raylib_game VERSION 0.1 DESCRIPTION "Template for Raylib projects")
@@ -31,7 +31,6 @@ else()
     target_compile_definitions(${PROJECT_NAME} PUBLIC ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/") # Set the asset path macro to the absolute path on the dev machine
 endif()
 
-
 #compile options
 if (MSVC)
     # warning level 4 and all warnings as errors
@@ -39,6 +38,29 @@ if (MSVC)
 else()
     # lots of warnings and all warnings as errors
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
+
+#Link options for Windows Release
+# Use this code:
+
+# #ifdef _WIN32
+# #ifndef _DEBUG
+# int WinMain(void) {
+# #else
+# int main(void) {
+# #endif
+# #else
+# int main(void) {
+# #endif
+
+if (CMAKE_BUILD_TYPE MATCHES Release)
+    if (WIN32)
+        if (MSVC)
+            target_link_options(${PROJECT_NAME} PRIVATE /SUBSYSTEM:WINDOWS)
+        else()
+            target_link_options(${PROJECT_NAME} PRIVATE -mwindows)
+        endif()
+    endif()
 endif()
 
 #Color on output for GCC and Clang (Does not work with ninja)
